@@ -18,6 +18,9 @@ amqp.connect('amqp://localhost', function(error0, connection) {
             durable: true
         });
 
+        channel.prefetch(1);
+        console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
+
         channel.consume(queue, function(msg) {
             var secs = msg.content.toString().split('.').length - 1;
 
@@ -27,7 +30,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
                 console.log(" [x] Done");
               }, secs * 1000);
         }, {
-            noAck: true
+            noAck: false
         });
     });
 });
