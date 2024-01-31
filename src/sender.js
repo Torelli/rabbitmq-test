@@ -22,4 +22,9 @@ amqp.connect('amqp://localhost', function(error0, connection){
         channel.sendToQueue(queue, Buffer.from(msg));
         console.log(" [x] Sent %s", msg);
     })
+
+    setTimeout(function() {
+        connection.close();
+        process.exit(0);
+    }, 500);
 });
